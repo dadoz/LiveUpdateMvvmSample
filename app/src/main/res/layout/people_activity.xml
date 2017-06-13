@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="peopleViewModel"
+            type="com.example.davide_syn.liveupdatemvvmsample.viewmodel.PeopleViewModel"/>
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+            <ProgressBar
+                android:id="@+id/progress_people"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:visibility="@{peopleViewModel.peopleProgress}"/>
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/peopleEditLabelId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{peopleViewModel.peopleEditLabelContent}"
+                app:addTextChangedListener="@{peopleViewModel.peopleEditLabelWatcher}"
+                android:visibility="@{peopleViewModel.peopleEditLabel}"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{peopleViewModel.peopleEditButton}"
+                android:onClick="@{peopleViewModel::onChangeLabelClick}"
+                android:text="CHANGE LABEL"/>
+
+            <TextView
+                android:id="@+id/label_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@{peopleViewModel.messageLabel}"
+                app:visibility="@{peopleViewModel.peopleLabel}"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list_people"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:scrollbars="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:visibility="@{peopleViewModel.peopleRecycler}"
+                tools:listitem="@layout/item_people"/>
+
+
+        </LinearLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:onClick="@{peopleViewModel::onClickFabLoad}"
+            android:src="@drawable/ic_add_24dp"/>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</layout>
